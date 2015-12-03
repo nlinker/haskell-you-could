@@ -54,6 +54,11 @@ $ cabal repl  # или ghci
 $ cabal build
 $ ./dist/build/monads-fun/monads-fun
 ```
+либо
+```
+$ cabal build
+$ cabal run
+```
 
 ## Доступные клавиши
 --------------------
