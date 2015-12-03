@@ -2,6 +2,19 @@ module Step1 where
 
 -- # Про алгебраические типы данных и паттерн-матчинг
 
+data Unit = Unit
+data Add a b = AddL a | AddR b
+data Mul a b = Mul a b
+
+data Void
+data X = X
+data Port = Port Int
+
+data Maybe a = Just a | Nothing
+data Either a b = Left a | Right b
+data Tree a = Empty | Branch a (Tree a) (Tree a)
+
+
 -- В качестве примера можно взять задачу декодирования цепочек нуклеиновых кислот.
 -- Нуклеиновая кислота в РНК - это либо
 -- - аденин (A)
