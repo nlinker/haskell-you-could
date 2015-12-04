@@ -2,13 +2,14 @@ module Step1 where
 
 -- # Про алгебраические типы данных и паттерн-матчинг
 
-data Unit = Unit
-data Add a b = AddL a | AddR b
-data Mul a b = Mul a b
+data Void                       -- ноль
+data Unit = Unit                -- единица
+data Add a b = AddL a | AddR b  -- сложение
+data Mul a b = Mul a b          -- умножение
 
-data Void
 data X = X
 data Port = Port Int
+data Distance = DistMeters Double
 
 data Maybe a = Just a | Nothing
 data Either a b = Left a | Right b
