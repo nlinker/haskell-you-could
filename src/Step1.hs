@@ -15,6 +15,11 @@ data Maybe a = Just a | Nothing
 data Either a b = Left a | Right b
 data Tree a = Empty | Branch a (Tree a) (Tree a)
 
+-- можно всякие функции пределять
+hehe :: Tree a -> String
+hehe t = case t of
+  Empty        -> "empty"
+  Branch _ _ _ -> "not empty"
 
 -- В качестве примера можно взять задачу декодирования цепочек нуклеиновых кислот.
 -- Нуклеиновая кислота в РНК - это либо
@@ -23,10 +28,10 @@ data Tree a = Empty | Branch a (Tree a) (Tree a)
 -- - урацил (U)
 -- - цитозин (C)
 
--- Каждая тройка молекул нуклеиновых кислот определяет 
+-- Каждая тройка молекул нуклеиновых кислот определяет
 -- производство некоторой молекулы аминокислоты в рибосомах.
 
--- Таким образом на вход рибосоме поступает РНК, на выходе - 
+-- Таким образом на вход рибосоме поступает РНК, на выходе -
 -- цепочка аминокислот, то есть некоторый белок
 
 data RNA = A | U | C | G
@@ -38,7 +43,7 @@ data AminoAcid
     | Stop
     deriving (Show)
 
-decode :: RNA -> RNA -> RNA -> AminoAcid 
+decode :: RNA -> RNA -> RNA -> AminoAcid
 decode U U U = Phe
 decode U U C = Phe
 decode U U A = Leu
