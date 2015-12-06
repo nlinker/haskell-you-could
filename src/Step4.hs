@@ -1,7 +1,10 @@
 module Step4 where
 
+import Text.Read (readMaybe)
+
 -- Подготовка к монадам
 
+sumMaybe :: Maybe Integer
 sumMaybe =
   case readMaybe "12" of
     Nothing -> Nothing
@@ -14,21 +17,18 @@ sumMaybe =
             Just z  -> Just (x + y + z)
 
 
-add_2 x = x + 2
-
-mul_2 y = y * 2
-
-test1 x = add_2 (mul_2 x)  -- очень легко сочетаются
+add2 x = x + 2
+mul2 y = y * 2
+test1 x = do
+  let result = add2 (mul2 x)  -- очень легко сочетаются
+  print result
 
 -- Но что если нам нужно вывести логи?
-
-add_2 x = (x, "added 2 to " ++ show x)
-
-mul_2 y = (y, "multiplied " ++ show y ++ " by 2")
+add2a x = (x, "added 2 to " ++ show x)
+mul2a y = (y, "multiplied " ++ show y ++ " by 2")
 
 -- как теперь их сочетать?
-
 test2 x =
-  let (x1, l1) = mul_2 y in
-  let (x2, l2) = add_2 x1 in
+  let (x1, l1) = mul2a x in
+  let (x2, l2) = add2a x1 in
   (x2, l1 ++ l2)

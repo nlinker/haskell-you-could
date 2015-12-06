@@ -1,26 +1,36 @@
 module Step2 where
 
-import Prelude hiding (Eq)
+-- скрываем стандартные определения, чтобы они нам мне мешали компилировать код
+import Prelude hiding (Show, (==))
 
 -- # Про классы типов
+
 -- классы типов — это совсем не то же самое, что классы в Джаве
--- можно сделать синоним "обобщённый интерфейс"
+-- можно использовать синоним "обобщённый интерфейс"
 -- 1. определяют только абстрактный интерфейс
 -- 2. позволяют создавать несколько независимых реализаций интерфейса
 
 -- обычно функции определяются так
-elem x []     = False
-elem x (y:ys) = x==y || (elem x ys)
+elem1 x []     = False
+elem1 x (y:ys) = x==y || (elem1 x ys)
 
 -- случаи можно разбирать и выражением case ... of
-elem1 x xs =
+-- выбор в данном случае - дело вкуса, на работу кода не влияет
+elem2 x xs =
   case xs of
     []     -> False
-    (y:ys) -> x==y || (elem1 x ys)
+    (y:ys) -> x==y || (elem2 x ys)
 
+-- попробуйте раскомментировать этот код (подсказка: будет ошибка)
+-- test1 = elem1 1 [1,2,3]
 
--- вызвать можно обычным образом
-test1 = elem 1 [1,2,3]
+class Show a where
+  show :: a -> String
+
+instance Show Bool where
+  show True = "True"
+  show False = "False"
+
 
 -- Какой тип должен быть у elem? Ну ясно, что `a->[a]->Bool`
 -- но тогда и `(==)::a->a->Bool`
@@ -44,9 +54,3 @@ class Eq a where
 
 -- instance Eq Float where
 --  x == y =  x `floatEq` y
-
---data RNA = A | U | C | G
---    deriving (Read)
-
-instance Eq RNA where
-  x == y = undefined
