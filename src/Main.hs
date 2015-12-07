@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wall #-}
+
 module Main where
 
 -- В качестве примера можно взять задачу декодирования цепочек нуклеиновых кислот.
@@ -32,6 +34,7 @@ data AminoAcid
     | Stop
     deriving (Show)
 
+-- TODO попытайтесь закомментировать любой случай и посмотреть на реакцию компилятора
 decode :: RNA -> RNA -> RNA -> AminoAcid
 decode U U U = Phe
 decode U U C = Phe
