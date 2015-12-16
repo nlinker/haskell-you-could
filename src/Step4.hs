@@ -22,28 +22,49 @@ pureTest x = pureShow (pureGt (pureFloor x))
 pureBind :: a -> (a -> b) -> b
 pureBind x f = undefined  -- TODO
 
-pureTest2 = undefined -- TODO то же самое, что  но используя pureBind
+pureChain1 :: Double -> Int
+pureChain1 x1 = pureBind x1 pureFloor
+
+pureChain1a :: Double -> Int
+pureChain1a x1 = pureBind x1 (\x -> pureFloor x)
+
+pureChain1b :: Double -> Int
+pureChain1b x1 = pureBind x1 (\x -> pureBind (pureFloor x) id)
+
+---------------------------------
+-- добавим ещё один шаг к цепочку
+pureChain2 :: Double -> Bool
+pureChain2 x1 = pureBind x1 (\x ->
+  pureBind (pureFloor x) (\y ->
+    pureBind (pureGt y) id))
+
+---------------------------------
+-- добавим последний шаг к цепочку
+-- TODO fix compilation error
+-- pureChain3 :: Double -> String
+-- pureChain3 x1 = pureBind x1 (\x ->
+--   pureBind (pureFloor x) (\y ->
+--     pureBind (pureGt y) id))
 
 ---------------------------------------------------
 -- Логгирование в чистых функциях, омг
 -- TODO напишите типы
-loggableFloor x = (floor x,                      show x ++ " was floored \n")
-loggableGt y    = (y >= 0,                       show y ++ " compared with 0 \n")
-loggableShow z  = ("loggableShow => " ++ show z, show z ++ " converted to string\n")
+logFloor x = (floor x,                  show x ++ " was floored \n")
+logGt y    = (y >= 0,                   show y ++ " compared with 0 \n")
+logShow z  = ("<<<" ++ show z ++ ">>>", show z ++ " converted to string\n")
 -- как теперь их сочетать?
-loggableTest :: Double -> (String, String)
-loggableTest x = undefined -- TODO написать определение
+logChain3a :: Double -> (String, String)
+logChain3a x = undefined -- TODO написать определение
 -- подсказка для 2-х функций
 -- test2 x =
 --   let (x1, l1) = loggableFloor x in
 --   let (x2, l2) = loggableGt x1 in
 --   (x2, l1 ++ l2)
 
-loggableBind :: (a, String) -> (a -> (b, String)) -> (b, String)
-loggableBind x f = undefined -- TODO написать определение
+logBind :: (a, String) -> (a -> (b, String)) -> (b, String)
+logBind x f = undefined -- TODO написать определение
 
-loggableTest2 = undefined -- TODO то же самое, что  но используя loggableBind
-
+logChain3b = undefined -- TODO то же самое, что  но используя logBind
 
 ---------------------------------------------------
 -- TODO напишите типы
